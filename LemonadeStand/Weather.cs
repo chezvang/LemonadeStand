@@ -57,9 +57,9 @@ namespace LemonadeStand
             tempStringResult = Convert.ToString(tempResult);
         }
 
-        public void DisplayTemp(string tempStringResult)
+        public void DisplayTemp()
         {
-            Console.WriteLine("The temperature for today is " + tempStringResult);
+            Console.WriteLine("The temperature for today is " + tempStringResult + ".");
             return;
         }
 

@@ -41,7 +41,7 @@ namespace LemonadeStand
         public void DisplayInformation()
         {
             playerOne.DisplayPlayerWallet();
-            //weather.DisplayTemp();
+            weather.DisplayTemp();
             weather.DisplayWeather();
         }
 
