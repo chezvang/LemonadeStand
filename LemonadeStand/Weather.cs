@@ -8,8 +8,6 @@ namespace LemonadeStand
 {    
     class Weather
     {
-        public string weather;
-
         Random random = new Random();
         int weatherResult;
         string displayWeather;
@@ -40,10 +38,10 @@ namespace LemonadeStand
             }
         }
 
-        public void DisplayWeather()
+        public virtual string DisplayWeather()
         {
             Console.WriteLine("Today's weather forecast is " + displayWeather + ".");
-            return;
+            return displayWeather;
         }
 
         public void GenerateTemp()

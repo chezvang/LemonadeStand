@@ -15,7 +15,17 @@ namespace LemonadeStand
         //lemons, sugar, ice cubes, cups
         public void PlayerInventory()
         {
-            inventory = new List<string>() { "Lemons", "Sugar", "Ice Cubes", "cups" };            
+            inventory = new List<string>() { "Lemons", "Sugar", "Ice Cubes", "Cups" };            
+        }
+
+        public void DisplayInventory()
+        {
+
+        }
+
+        public void LemonsInventory()
+        {
+            
         }
 
         //public int LemonsInventory()

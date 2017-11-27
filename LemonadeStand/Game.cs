@@ -12,18 +12,18 @@ namespace LemonadeStand
         Player playerOne;
         //Player playerTwo;
         //Player comPlayer;
-        Day day;
+        //Day day;
         Weather weather;
         Store store;
-        Customer customer;
+        Customer customer;        
 
         public void StartGame() //game constructor
         {
             ui = new UserInterface();
             playerOne = new Player();
             //day = new Day();
-            weather = new Weather();
-            //store = new Store();
+            weather = new Weather(); //move to display from day class
+            store = new Store();
             //customer = new Customer();
         }
 
@@ -33,9 +33,16 @@ namespace LemonadeStand
             ui.DisplayInfo();
             //playerOne.PlayerInventory();
             playerOne.PlayerWallet();
+
+            NewDay();
+            DisplayInformation();
+            PurchasePhase();
+        }
+
+        public void NewDay()
+        {
             weather.GenerateTemp();
             weather.GenerateWeather();
-            DisplayInformation();
         }
 
         public void DisplayInformation()
@@ -45,8 +52,9 @@ namespace LemonadeStand
             weather.DisplayWeather();
         }
 
-        public void Purchase()
+        public void PurchasePhase()
         {
+            store.PurchaseSupplies();
 
         }
 
