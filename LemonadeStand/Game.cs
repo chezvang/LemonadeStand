@@ -17,12 +17,12 @@ namespace LemonadeStand
         Store store;
         Customer customer;
 
-        public void StartGame()
+        public void StartGame() //game constructor
         {
             ui = new UserInterface();
-            //playerOne = new Player();
+            playerOne = new Player();
             //day = new Day();
-            //weather = new Weather();
+            weather = new Weather();
             //store = new Store();
             //customer = new Customer();
         }
@@ -30,6 +30,29 @@ namespace LemonadeStand
         public void RunGame()
         {
             ui.DisplayIntro();
+            ui.DisplayInfo();
+            //playerOne.PlayerInventory();
+            playerOne.PlayerWallet();
+            weather.GenerateTemp();
+            weather.GenerateWeather();
+            DisplayInformation();
+        }
+
+        public void DisplayInformation()
+        {
+            playerOne.DisplayPlayerWallet();
+            //weather.DisplayTemp();
+            weather.DisplayWeather();
+        }
+
+        public void Purchase()
+        {
+
+        }
+
+        public void CalculateProfit()
+        {
+            
         }
     }
 }
