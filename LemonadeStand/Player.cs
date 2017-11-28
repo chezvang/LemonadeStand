@@ -19,7 +19,7 @@ namespace LemonadeStand
             inventory = new Inventory();
         }
 
-        public void PlayerOneInventory()
+        public new void PlayerOneInventory()
         {
             inventory.PlayerOneInventory();
             inventory.PlayerWallet();
