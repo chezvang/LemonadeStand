@@ -16,7 +16,6 @@ namespace LemonadeStand
         public void PurchaseSupplies()
         {
             PurchasePrompt();
-            //StringToIntConverter(purchaseAmount);
             PurchaseCalculation(playerChoice, purchaseAmount);
 
         }
@@ -42,11 +41,6 @@ namespace LemonadeStand
 
             Console.WriteLine("You purchased " + purchaseAmount + " " + playerChoice + " for a total of $" + totalAmount);
         }
-
-        //public void StringToIntConverter(string convertToInt)
-        //{
-        //    this.purchaseAmount = Convert.ToInt32();
-        //}
 
         public void PurchaseOptions(string playerChoice)
         {
