@@ -6,31 +6,39 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    abstract class Inventory
+    class Inventory
     {
         private int money;
-        List<string> inventory;
-        string[] lemonsInventory = new string[1];
+        //public string displayInventory;
+        //List<string> inventory;
+        Dictionary<string, int> inventory;
 
         //lemons, sugar, ice cubes, cups
-        public void PlayerInventory()
+        public void PlayerOneInventory()
         {
-            inventory = new List<string>() { "Lemons", "Sugar", "Ice Cubes", "Cups" };            
+            var inventory = new Dictionary<string, int>();
+            {
+                inventory["Lemons"] = 0;
+                inventory["Sugar"] = 0;
+                inventory["Ice Cubes"] = 0;
+                inventory["Cups"] = 0;
+
+                foreach (KeyValuePair<string, int> item in inventory)
+                {
+                    Console.WriteLine(item.Key + ": " + item.Value);
+                }
+            }
         }
 
-        public void DisplayInventory()
-        {
-
-        }
-
-        public void LemonsInventory()
-        {
-            
-        }
-
-        //public int LemonsInventory()
+        //public void DisplayInventory()
         //{
-
+        //    PlayerOneInventory();
+        //    {
+        //        foreach (KeyValuePair<string, int> pair in inventory)
+        //        {
+        //            Console.WriteLine(pair.Key, pair.Value);
+        //        }
+        //    }
         //}
 
         public int PlayerWallet()

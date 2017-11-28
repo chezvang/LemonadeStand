@@ -31,9 +31,10 @@ namespace LemonadeStand
         {
             ui.DisplayIntro();
             ui.DisplayInfo();
-            //playerOne.PlayerInventory();
-            playerOne.PlayerWallet();
 
+            //playerOne.PlayerOneInventory();
+
+            playerOne.PlayerWallet();
             NewDay();
             DisplayInformation();
             PurchasePhase();
@@ -48,6 +49,9 @@ namespace LemonadeStand
         public void DisplayInformation()
         {
             playerOne.DisplayPlayerWallet();
+
+            playerOne.PlayerOneInventory();
+
             weather.DisplayTemp();
             weather.DisplayWeather();
         }
@@ -58,7 +62,12 @@ namespace LemonadeStand
 
         }
 
-        public void CalculateProfit()
+        public void CustomerPhase()
+        {
+
+        }
+
+        public void CalculationPhase()
         {
             
         }

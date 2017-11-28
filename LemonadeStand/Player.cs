@@ -11,16 +11,17 @@ namespace LemonadeStand
         //name
         //inherit inventory
         //public string name;
-        public int money;
+        //public int money;
         Inventory inventory;
 
         public Player()
         {
+            inventory = new Inventory();
         }
 
-        public void PlayerInventory()
+        public void PlayerOneInventory()
         {
-            inventory.PlayerInventory();
+            inventory.PlayerOneInventory();
             inventory.PlayerWallet();
         }
     }
