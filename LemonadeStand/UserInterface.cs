@@ -19,7 +19,7 @@ namespace LemonadeStand
             Console.WriteLine("Welcome to Lemonade Stand!");
         }
 
-        public void DisplayInfo()
+        public void DisplayGameInfo()
         {
             Console.WriteLine("Game info here");
         }

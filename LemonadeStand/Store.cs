@@ -16,23 +16,22 @@ namespace LemonadeStand
         public void PurchaseSupplies()
         {
             PurchasePrompt();
+            PurchaseOptions(playerChoice);
             PurchaseCalculation(playerChoice, purchaseAmount);
 
         }
 
         public void PurchasePrompt()
         {
-            Console.WriteLine("Enter the number for the desired item:");
+            Console.WriteLine("What do you want to buy? \nUse the number next to the item you want to purchase:");
             Console.WriteLine("[1] Lemons  | $2.00 ea \n[2] Sugar   | $1.00 ea \n[3] Cups    | $1.00 ea \n[4] Ice     | $1.00 ea");
-            string playerChoice = Console.ReadLine();
-            PurchaseOptions(playerChoice);
+            playerChoice = Console.ReadLine();
         }
 
         public void AmountToPurchase(string playerChoice)
         {
             Console.WriteLine("How many " + playerChoice + " do you want to purchase? \nEnter Amount:");
             purchaseAmount = Convert.ToInt32(Console.ReadLine());
-            return;
         }
 
         public void PurchaseCalculation(string playerChoice, int purchaseAmount)
@@ -42,13 +41,13 @@ namespace LemonadeStand
             Console.WriteLine("You purchased " + purchaseAmount + " " + playerChoice + " for a total of $" + totalAmount);
         }
 
-        public void PurchaseOptions(string playerChoice)
+        public string PurchaseOptions(string playerChoice)
         {
             switch (playerChoice)
             {
-                case "1":
+                case "lemons":
                     playerChoice = "Lemons";
-                    itemPrice = 2;
+                    itemPrice = 3;
                     AmountToPurchase(playerChoice);
                     break;
                 case "2":
@@ -63,7 +62,7 @@ namespace LemonadeStand
                     break;
                 case "4":
                     playerChoice = "bags of Ice";
-                    itemPrice = 1;
+                    itemPrice = 2;
                     AmountToPurchase(playerChoice);
                     break;
                 default:
@@ -71,7 +70,7 @@ namespace LemonadeStand
                     PurchasePrompt();
                     break;
             }
+            return playerChoice;
         }
-
     }
 }
