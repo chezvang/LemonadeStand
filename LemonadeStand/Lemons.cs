@@ -21,5 +21,11 @@ namespace LemonadeStand
             lemons += purchaseAmount;
             return lemons;
         }
+
+        public int SubtractLemon(int subtract)
+        {
+            lemons -= subtract;
+            return lemons;
+        }
     }
 }

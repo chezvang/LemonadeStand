@@ -20,5 +20,10 @@ namespace LemonadeStand
             iceCube += purchaseAmount;
             return iceCube;
         }
+        public int SubtractIceCube(int subtract)
+        {
+            iceCube -= subtract;
+            return iceCube;
+        }
     }
 }

@@ -11,6 +11,16 @@ namespace LemonadeStand
 
         public int pitcherValue;
 
+        public int lemonsRecipe;
+        public int sugarRecipe;
+        public int iceCubeRecipe;
+
+        public int cupsUsed;
+
+        public int lemonsPitcher;
+        public int sugarPitcher;
+        public int iceCubePitcher;
+
         public void PromptRecipe()
         {
             Console.WriteLine("Set your recipe");
@@ -18,9 +28,6 @@ namespace LemonadeStand
 
         //set price
         //lemons, sugar, and ice per pitcher
-        public void SetRecipe()
-        {
 
-        }
     }
 }

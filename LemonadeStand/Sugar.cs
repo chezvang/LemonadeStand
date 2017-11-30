@@ -20,6 +20,11 @@ namespace LemonadeStand
             sugar += purchaseAmount;
             return sugar;
         }
+        public int SubtractSugar(int subtract)
+        {
+            sugar -= subtract;
+            return sugar;
+        }
 
     }
 }

@@ -29,6 +29,18 @@ namespace LemonadeStand
         public double totalAmount;
         public double itemPrice;
 
+        public int lemonsRecipe;
+        public int sugarRecipe;
+        public int iceCubeRecipe;
+
+        public int cupsUsed;
+
+        public int lemonsPitcher;
+        public int sugarPitcher;
+        public int iceCubePitcher;
+
+        public int pitcherValue;
+
         public string response;
 
         public int dayCounter = 1;
@@ -51,18 +63,6 @@ namespace LemonadeStand
             ui.DisplayIntro();
             ui.DisplayGameInfo();
             wallet.StartGameWallet(20);
-        }
-
-        public void RunGame()
-        {
-            NewDay();
-            DisplayInformation();
-            PurchasePhase();
-            wallet.DisplayPlayerWallet();
-            lemons.CheckLemons();
-            sugar.CheckSugar();
-            cups.CheckCups();
-            iceCube.CheckIceCube();
         }
 
         public void NewDay()
@@ -199,7 +199,6 @@ namespace LemonadeStand
                     break;
                 case "n":
                     Console.Clear();
-                    RecipePhase();
                     break;
                 default:
                     yesOrNo(response);
@@ -210,7 +209,52 @@ namespace LemonadeStand
         public void RecipePhase()
         {
             ui.PromptRecipe();
-            recipe.SetRecipe();
+            SetRecipe();
+        }
+
+        public void SetRecipe()
+        {
+            Console.WriteLine("How would you like to set your recipe?");
+            Console.WriteLine("Enter the amount of lemons to add");
+            lemonsRecipe = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter the amount of sugar to add");
+            sugarRecipe = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter the amount of ice cubes to add");
+            iceCubeRecipe = Convert.ToInt32(Console.ReadLine());
+            SetPitcher(lemonsRecipe, sugarRecipe, iceCubeRecipe);
+        }
+
+        public void SetPitcher(int lemonsRecipe, int sugarRecipe, int iceCubeRecipe)
+        {
+            lemonsPitcher += lemonsRecipe * 2;
+            lemons.SubtractLemon(lemonsRecipe);
+
+            sugarPitcher += sugarRecipe;
+            sugar.SubtractSugar(sugarRecipe);
+
+            iceCubePitcher += iceCubeRecipe;
+            iceCube.SubtractIceCube(iceCubeRecipe);
+
+            pitcherValue = (lemonsPitcher + sugarPitcher) - iceCubePitcher;
+
+            DisplayItems();
+            Console.WriteLine("\npitcher value" + pitcherValue);
+
+            PitcherCheck();
+        }
+
+        public void PitcherCheck()
+        {
+            if (pitcherValue <= 0)
+            {
+                pitcherValue = 0;
+            }
+            else
+            {
+
+            }
         }
 
         public void CustomerPhase()
@@ -232,7 +276,27 @@ namespace LemonadeStand
         public void DayCheck()
         {
 
-            Console.WriteLine(dayCounter); //show day
+            if (dayCounter == 7)
+            {
+                Console.WriteLine("Let's see how you did!");
+            }
+            else
+            {
+                RunGame();
+            }
+           Console.WriteLine(dayCounter); //show day
+        }
+
+        public void RunGame()
+        {
+            NewDay();
+            DisplayInformation();
+            PurchasePhase();
+            RecipePhase();
+            CustomerPhase();
+            CalculationPhase();
+            DecayPhase();
+            DayCheck();
         }
     }
 }
