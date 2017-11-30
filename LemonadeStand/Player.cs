@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Player : Inventory
+    class Player
     {
         //name
         //inherit inventory
-        //public string name;
-        //public int money;
         Inventory inventory;
 
         public Player()
@@ -21,7 +19,7 @@ namespace LemonadeStand
 
         public new void PlayerOneInventory()
         {
-            inventory.PlayerOneInventory();
+            inventory.PlayerInventory();
             inventory.PlayerWallet();
         }
     }

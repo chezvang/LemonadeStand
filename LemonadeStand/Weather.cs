@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LemonadeStand
-{    
+{
     class Weather
     {
         Random random = new Random();
@@ -21,7 +21,7 @@ namespace LemonadeStand
 
         public void ResultWeather()
         {
-            switch(weatherResult)
+            switch (weatherResult)
             {
                 case 1:
                     displayWeather = "Hazy";
@@ -40,14 +40,15 @@ namespace LemonadeStand
 
         public virtual string DisplayWeather()
         {
-            Console.WriteLine("Today's weather forecast is " + displayWeather + ".");
+            Console.WriteLine("Today's weather forecast is " + displayWeather + ".\n");
             return displayWeather;
         }
 
-        public void GenerateTemp()
+        public int GenerateTemp()
         {
             int tempResult = random.Next(50, 100);
             ConvertTemp(tempResult);
+            return tempResult;
         }
 
         public void ConvertTemp(int tempResult)
@@ -57,7 +58,7 @@ namespace LemonadeStand
 
         public void DisplayTemp()
         {
-            Console.WriteLine("The temperature for today is " + tempStringResult + ".");
+            Console.WriteLine("The temperature for today is " + tempStringResult + " degrees.");
             return;
         }
 

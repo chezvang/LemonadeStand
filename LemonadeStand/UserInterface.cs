@@ -16,12 +16,14 @@ namespace LemonadeStand
 
         public void DisplayIntro()
         {
-            Console.WriteLine("Welcome to Lemonade Stand!");
+            Console.WriteLine("Welcome to Lemonade Stand!\n");
         }
 
         public void DisplayGameInfo()
         {
-            Console.WriteLine("Game info here");
+            Console.WriteLine("Game info here\n");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         public void DisplayMainMenu()
@@ -37,6 +39,12 @@ namespace LemonadeStand
         public void DisplayWeather()
         {
 
+        }
+
+        public void PromptRecipe()
+        {
+            Console.WriteLine("Set your recipe for the day");
+            Console.WriteLine("Remember, whatever you set will be used for every new pitcher. New pitchers are created after the amount of cups run out for it.");
         }
     }
 }

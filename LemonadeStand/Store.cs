@@ -10,21 +10,26 @@ namespace LemonadeStand
     {
         public string playerChoice;
         public int purchaseAmount;
-        public int totalAmount;
-        public int itemPrice;
+        public double totalAmount;
+        public double itemPrice;
+        //Inventory inventory
+        Wallet wallet = new Wallet();
+        Lemons lemons = new Lemons();
+        Sugar sugar = new Sugar();
+        Cups cups = new Cups();
+        IceCube iceCube = new IceCube();
 
         public void PurchaseSupplies()
-        {
+        {           
             PurchasePrompt();
             PurchaseOptions(playerChoice);
             PurchaseCalculation(playerChoice, purchaseAmount);
-
         }
 
         public void PurchasePrompt()
         {
             Console.WriteLine("What do you want to buy? \nUse the number next to the item you want to purchase:");
-            Console.WriteLine("[1] Lemons  | $2.00 ea \n[2] Sugar   | $1.00 ea \n[3] Cups    | $1.00 ea \n[4] Ice     | $1.00 ea");
+            Console.WriteLine("[1] Lemons  | $1.5 ea \n[2] Sugar   | $2.00 ea \n[3] Cups    | $1.00 ea \n[4] Ice     | $1.00 ea");
             playerChoice = Console.ReadLine();
         }
 
@@ -39,30 +44,59 @@ namespace LemonadeStand
             totalAmount = purchaseAmount * itemPrice;
 
             Console.WriteLine("You purchased " + purchaseAmount + " " + playerChoice + " for a total of $" + totalAmount);
+
+            ItemValues(playerChoice, totalAmount);
+        }
+
+        public void ItemValues(string playerChoice, double totalAmount)
+        {
+            switch (playerChoice)
+            {
+                case "1":
+                    //lemons.lemons = lemons.lemons += purchaseAmount;
+                    lemons.AddLemons(purchaseAmount);
+                    wallet.CalculateWallet(totalAmount);
+                    break;
+                case "2":
+                    sugar.sugar = sugar.sugar += purchaseAmount;
+                    wallet.CalculateWallet(totalAmount);
+                    return;
+                case "3":
+                    cups.cups = cups.cups += purchaseAmount;
+                    wallet.CalculateWallet(totalAmount);
+                    return;
+                case "4":
+                    iceCube.iceCube = iceCube.iceCube += purchaseAmount;
+                    wallet.CalculateWallet(totalAmount);
+                    return;
+                default:
+                    Console.WriteLine("This thing broke");
+                    break;
+            }
         }
 
         public string PurchaseOptions(string playerChoice)
         {
             switch (playerChoice)
             {
-                case "lemons":
+                case "1":
                     playerChoice = "Lemons";
-                    itemPrice = 3;
+                    itemPrice = 1.50;
                     AmountToPurchase(playerChoice);
                     break;
                 case "2":
                     playerChoice = "cups of Sugar";
-                    itemPrice = 1;
+                    itemPrice = .75;
                     AmountToPurchase(playerChoice);
                     break;
                 case "3":
                     playerChoice = "Cups";
-                    itemPrice = 1;
+                    itemPrice = .50;
                     AmountToPurchase(playerChoice);
                     break;
                 case "4":
                     playerChoice = "bags of Ice";
-                    itemPrice = 2;
+                    itemPrice = .90;
                     AmountToPurchase(playerChoice);
                     break;
                 default:

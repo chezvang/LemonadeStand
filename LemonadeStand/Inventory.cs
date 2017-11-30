@@ -8,48 +8,48 @@ namespace LemonadeStand
 {
     class Inventory
     {
-        private int money;
-        //public string displayInventory;
-        //List<string> inventory;
+        public double money;
         Dictionary<string, int> inventory;
 
         //lemons, sugar, ice cubes, cups
-        public void PlayerOneInventory()
-        {
-            var inventory = new Dictionary<string, int>();
-            {
-                inventory["Lemons"] = 0;
-                inventory["Sugar"] = 0;
-                inventory["Ice Cubes"] = 0;
-                inventory["Cups"] = 0;
-
-                foreach (KeyValuePair<string, int> item in inventory)
-                {
-                    Console.WriteLine(item.Key + ": " + item.Value);
-                }
-            }
-        }
-
-        //public void DisplayInventory()
+        //public void PlayerOneInventory()
         //{
-        //    PlayerOneInventory();
+        //    var inventory = new Dictionary<string, int>();
         //    {
-        //        foreach (KeyValuePair<string, int> pair in inventory)
+        //        inventory["Lemons"] = 0;
+        //        inventory["Sugar"] = 0;
+        //        inventory["Ice Cubes"] = 0;
+        //        inventory["Cups"] = 0;
+
+        //        foreach (KeyValuePair<string, int> item in inventory)
         //        {
-        //            Console.WriteLine(pair.Key, pair.Value);
+        //            Console.WriteLine(item.Key + ": " + item.Value);
         //        }
         //    }
         //}
 
-        public int PlayerWallet()
+            public void PlayerInventory()
         {
-            money = 20; //placeholder, add decimals
-            return money;
+            Wallet wallet = new Wallet();
+            Lemons lemons = new Lemons();
+            Sugar sugar = new Sugar();
+            Cups cups = new Cups();
+            IceCube iceCube = new IceCube();
+        }
+
+        public void PlayerWallet()
+        {
+            money = 20.00;
         }
 
         public void DisplayPlayerWallet()
         {
             Console.WriteLine("Player cash: $" + money);
+        }
+
+        public void CalculateWallet(double number)
+        {
+            money = money - number;
         }
     }
 }
