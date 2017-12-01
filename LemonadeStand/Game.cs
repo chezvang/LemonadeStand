@@ -18,42 +18,31 @@ namespace LemonadeStand
 
         int gameTemperature;
         string gameWeather;
-
         public string playerChoice;
         public int purchaseAmount;
         public double totalAmount;
         public double itemPrice;
-
         public int lemonsRecipe;
         public int sugarRecipe;
         public int iceCubeRecipe;
-
         public int lemonsPitcher;
         public int sugarPitcher;
         public int iceCubePitcher;
-
         public int pitcherValue;
-
         public double price;
-
         public string response;
-
         public int customerAmount;
-
         public int customerBuy;
         public int customerNoBuy;
         public int customerTotal;
-
         public int dayTotalCustomers;
         public double dayTotalProfit;
         public double dayTotalDebt;
-
         public int overallBuyCustomer;
         public int overallNoBuyCustomer;
         public int overallTotalCustomer;
         public double overallProfit;
         public double overallDebt;
-
         public int dayCounter = 1;
 
         public void StartGame()
@@ -225,6 +214,7 @@ namespace LemonadeStand
         public void SetRecipe()
         {
             Console.WriteLine("\nHow would you like to set your recipe?");
+
             Console.WriteLine("\nEnter the amount of lemons to add");
             lemonsRecipe = Convert.ToInt32(Console.ReadLine());
 
