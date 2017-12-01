@@ -285,16 +285,16 @@ namespace LemonadeStand
             switch (gameWeather)
             {
                 case "Hazy":
-                    customerAmount = random.Next(60, 90);
+                    customerAmount = random.Next(60, 90) + (gameTemperature / 4);
                     break;
                 case "Rain":
-                    customerAmount = random.Next(35, 75);
+                    customerAmount = random.Next(35, 75) + (gameTemperature / 4);
                     break;
                 case "Overcast":
-                    customerAmount = random.Next(45, 85);
+                    customerAmount = random.Next(45, 85) + (gameTemperature / 4);
                     break;
                 default:
-                    customerAmount = random.Next(80, 120);
+                    customerAmount = random.Next(80, 120) + (gameTemperature / 4);
                     break;
             }
         }
@@ -419,9 +419,14 @@ namespace LemonadeStand
             ui.ClickToContinue();
         }
 
+        public void CalculateOverallCustomer()
+        {
+            overallTotalCustomer = overallBuyCustomer + overallNoBuyCustomer;
+        }
+
         public void DisplayOverallCustomer()
         {
-            Console.WriteLine("Total customers: " + overallTotalCustomer);
+            Console.WriteLine("You had " + overallBuyCustomer + " out of" + overallTotalCustomer);
         }
 
         public void DayCheck()
@@ -430,6 +435,7 @@ namespace LemonadeStand
             if (dayCounter == 7)
             {
                 Console.WriteLine("Let's see how you did!");
+                CalculateOverallCustomer();
                 DisplayOverallProfit();
                 DisplayOverallCustomer();
 
