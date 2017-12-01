@@ -9,10 +9,7 @@ namespace LemonadeStand
     class Game
     {
         UserInterface ui;
-        Player player;
         Weather weather;
-        Recipe recipe;
-        Inventory inventory;
         Wallet wallet;
         Lemons lemons;
         Sugar sugar;
@@ -30,8 +27,6 @@ namespace LemonadeStand
         public int lemonsRecipe;
         public int sugarRecipe;
         public int iceCubeRecipe;
-
-        public int cupsUsed;
 
         public int lemonsPitcher;
         public int sugarPitcher;
@@ -63,13 +58,9 @@ namespace LemonadeStand
 
         public void StartGame()
         {
-            //inventory = new Inventory(); test, needed?
             ui = new UserInterface();
-            player = new Player();
             wallet = new Wallet();
             weather = new Weather();
-            //store = new Store();
-            recipe = new Recipe();
             lemons = new Lemons();
             sugar = new Sugar();
             cups = new Cups();
@@ -77,7 +68,7 @@ namespace LemonadeStand
 
             ui.DisplayIntro();
             ui.DisplayGameInfo();
-            wallet.StartGameWallet(20);
+            wallet.StartGameWallet(30);
         }
 
         public void NewDay()
@@ -133,7 +124,8 @@ namespace LemonadeStand
             totalAmount = purchaseAmount * itemPrice;
 
             Console.WriteLine("\nYou purchased " + purchaseAmount + " " + playerChoice + " for a total of $" + totalAmount);
-
+            dayTotalDebt += totalAmount;
+            overallDebt += totalAmount;
             ItemValues(playerChoice, totalAmount);
         }
 
@@ -144,7 +136,6 @@ namespace LemonadeStand
                 case "Lemons":
                     lemons.AddLemons(purchaseAmount);
                     wallet.CalculateWallet(totalAmount);
-                    dayTotalDebt += totalAmount;
                     break;
                 case "Sugar":
                     sugar.sugar = sugar.sugar += purchaseAmount;
@@ -328,11 +319,14 @@ namespace LemonadeStand
 
             customerBuyChance = customerBuyChance - (customerNoBuyChance + temperatureChance);
 
-            if (customerBuyChance >= 50 + weatherChance)
+            if (customerBuyChance >= 40 + weatherChance)
             {
                 customerBuy++;
                 overallBuyCustomer++;
                 dayTotalCustomers++;
+                CalculateOverallProfit(price);
+                CalculateDayProfit(price);
+                dayTotalProfit += price;
                 CustomerPurchase();
             }
             else
@@ -346,15 +340,12 @@ namespace LemonadeStand
         public void CustomerPurchase()
         {
             wallet.AddToWallet(price);
-            CalculateOverallProfit(price);
-            CalculateDayProfit(price);
             cups.SubtractCups(1);
         }
 
         public void CalculationPhase()
         {
-            dayCounter++;
-
+            dayCounter = 7;
             CalculateTotalCustomers();
             DisplayDayProfit();
             DisplayRemainingInventory();
@@ -375,10 +366,10 @@ namespace LemonadeStand
             ui.ClickToContinue();
         }
 
-        public void CalculateOverallProfit(double price)
+        public double CalculateOverallProfit(double profit)
         {
-            overallProfit += price;
-            overallProfit = overallProfit - overallDebt;
+            overallProfit = profit - overallDebt;
+            return overallProfit;
         }
 
         public void DisplayOverallProfit()
@@ -387,9 +378,10 @@ namespace LemonadeStand
             ui.ClickToContinue();
         }
 
-        public void CalculateDayProfit(double price)
+        public double CalculateDayProfit(double profit)
         {
-            dayTotalProfit = price - dayTotalDebt;
+            dayTotalProfit = profit - dayTotalDebt;
+            return dayTotalProfit;
         }
 
         public void DisplayDayProfit()
@@ -427,18 +419,28 @@ namespace LemonadeStand
             ui.ClickToContinue();
         }
 
+        public void DisplayOverallCustomer()
+        {
+            Console.WriteLine("Total customers: " + overallTotalCustomer);
+        }
+
         public void DayCheck()
         {
 
             if (dayCounter == 7)
             {
                 Console.WriteLine("Let's see how you did!");
+                DisplayOverallProfit();
+                DisplayOverallCustomer();
+
+                Console.WriteLine("\nThank you for playing!");
+                ui.ClickToContinue();
             }
             else
             {
                 RunGame();
             }
-           Console.WriteLine(dayCounter); //show day
+           Console.WriteLine(dayCounter);
         }
 
         public void RunGame()

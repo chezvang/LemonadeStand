@@ -30,13 +30,5 @@ namespace LemonadeStand
         {
             money = money += number;
         }
-
-        public void WalletCheck()
-        {
-            if (money <= 0)
-            {
-                Console.WriteLine("");
-            }
-        }
     }
 }
