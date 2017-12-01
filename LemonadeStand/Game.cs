@@ -310,8 +310,8 @@ namespace LemonadeStand
         public void CustomerVariant()
         {
             Random random = new Random();
-            int customerBuyChance = 100 + pitcherValue;
-            int customerNoBuyChance = random.Next(1, 41);
+            int customerBuyChance = 80 + pitcherValue;
+            int customerNoBuyChance = random.Next(21, 41);
             int temperatureChance = gameTemperature / 4;
             int weatherChance;
 
@@ -319,13 +319,12 @@ namespace LemonadeStand
 
             customerBuyChance = customerBuyChance - (customerNoBuyChance + temperatureChance);
 
-            if (customerBuyChance >= 40 + weatherChance)
+            if (customerBuyChance >= 42 + weatherChance)
             {
                 customerBuy++;
                 overallBuyCustomer++;
                 dayTotalCustomers++;
-                CalculateOverallProfit(price);
-                CalculateDayProfit(price);
+                overallProfit += price;
                 dayTotalProfit += price;
                 CustomerPurchase();
             }
@@ -345,8 +344,9 @@ namespace LemonadeStand
 
         public void CalculationPhase()
         {
-            dayCounter = 7;
+            dayCounter++;
             CalculateTotalCustomers();
+            DisplayTotalCustomer();
             DisplayDayProfit();
             DisplayRemainingInventory();
         }
@@ -354,6 +354,10 @@ namespace LemonadeStand
         public void CalculateTotalCustomers()
         {
             customerTotal = customerBuy + customerNoBuy;
+        }
+
+        public void DisplayTotalCustomer()
+        {
             Console.Clear();
             Console.WriteLine("You had " + customerBuy + " out of " + customerTotal + " customers today!\n");
             ui.ClickToContinue();
@@ -401,7 +405,6 @@ namespace LemonadeStand
         {
             Console.WriteLine("All of your ice melted!");
             iceCube.iceCube = 0;
-            ui.ClickToContinue();
         }
 
         public void ResetValues()
@@ -414,7 +417,7 @@ namespace LemonadeStand
 
         public void DecayLemons()
         {
-            Console.WriteLine("Some of your lemons spoiled");
+            Console.WriteLine("Some of your lemons spoiled!\n");
             lemons.SpoilLemons();
             ui.ClickToContinue();
         }
@@ -426,7 +429,7 @@ namespace LemonadeStand
 
         public void DisplayOverallCustomer()
         {
-            Console.WriteLine("You had " + overallBuyCustomer + " out of" + overallTotalCustomer);
+            Console.WriteLine("You had " + overallBuyCustomer + " out of " + overallTotalCustomer + " customers");
         }
 
         public void DayCheck()
@@ -434,7 +437,7 @@ namespace LemonadeStand
 
             if (dayCounter == 7)
             {
-                Console.WriteLine("Let's see how you did!");
+                Console.WriteLine("Let's see how you did!\n");
                 CalculateOverallCustomer();
                 DisplayOverallProfit();
                 DisplayOverallCustomer();

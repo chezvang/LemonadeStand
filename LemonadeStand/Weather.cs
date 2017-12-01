@@ -64,14 +64,15 @@ namespace LemonadeStand
 
         public int CustomerWeather(string gameWeather)
         {
+            Random random = new Random();
             switch (gameWeather)
             {
                 case "Hazy":
-                    return 10;
+                    return random.Next(9, 21);
                 case "Rain":
-                    return 20;
+                    return random.Next(21, 36);
                 case "Overcast":
-                    return 15;
+                    return random.Next(5, 21;
                 default:
                     return 0;
             }
