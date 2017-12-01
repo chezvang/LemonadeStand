@@ -10,9 +10,7 @@ namespace LemonadeStand
     {
         UserInterface ui;
         Player player;
-        Day day;
         Weather weather;
-        //Store store;
         Recipe recipe;
         Inventory inventory;
         Wallet wallet;
@@ -41,7 +39,25 @@ namespace LemonadeStand
 
         public int pitcherValue;
 
+        public double price;
+
         public string response;
+
+        public int customerAmount;
+
+        public int customerBuy;
+        public int customerNoBuy;
+        public int customerTotal;
+
+        public int dayTotalCustomers;
+        public double dayTotalProfit;
+        public double dayTotalDebt;
+
+        public int overallBuyCustomer;
+        public int overallNoBuyCustomer;
+        public int overallTotalCustomer;
+        public double overallProfit;
+        public double overallDebt;
 
         public int dayCounter = 1;
 
@@ -51,7 +67,6 @@ namespace LemonadeStand
             ui = new UserInterface();
             player = new Player();
             wallet = new Wallet();
-            day = new Day();
             weather = new Weather();
             //store = new Store();
             recipe = new Recipe();
@@ -68,20 +83,19 @@ namespace LemonadeStand
         public void NewDay()
         {
             gameTemperature = weather.GenerateTemp();
-            //gameWeather = weather.GetWeather();
+            weather.GenerateWeather();
+            Console.WriteLine("Day: " + dayCounter);
+            gameWeather = weather.DisplayWeather();
+            weather.DisplayTemp();
         }
 
         public void DisplayInformation()
         {
-            Console.WriteLine("Day: " + dayCounter);
             wallet.DisplayPlayerWallet();
             lemons.CheckLemons();
             sugar.CheckSugar();
             cups.CheckCups();
             iceCube.CheckIceCube();
-
-            weather.DisplayTemp();
-            weather.DisplayWeather();
         }
 
         public void DisplayItems()
@@ -103,14 +117,14 @@ namespace LemonadeStand
 
         public void PurchasePrompt()
         {
-            Console.WriteLine("What do you want to buy? \nUse the number next to the item you want to purchase:");
-            Console.WriteLine("[1] Lemons  | $0.75 ea \n[2] Sugar   | $0.50 ea \n[3] Cups    | $0.50 ea \n[4] Ice     | $0.50 ea");
+            Console.WriteLine("What do you want to buy? \nType the name of the item you want to purchase:");
+            Console.WriteLine("[ Lemons ] | $0.50 ea \n[ Sugar ]  | $0.25 ea \n[ Cups ]   | $0.20 ea \n[ Ice ]    | $0.25 ea \n[ None ]   | Continue to store");
             playerChoice = Console.ReadLine();
         }
 
         public void AmountToPurchase(string playerChoice)
         {
-            Console.WriteLine("How many " + playerChoice + " do you want to purchase? \nEnter Amount:");
+            Console.WriteLine("\nHow much do you want to purchase? \nEnter Amount:");
             purchaseAmount = Convert.ToInt32(Console.ReadLine());
         }
 
@@ -118,7 +132,7 @@ namespace LemonadeStand
         {
             totalAmount = purchaseAmount * itemPrice;
 
-            Console.WriteLine("You purchased " + purchaseAmount + " " + playerChoice + " for a total of $" + totalAmount);
+            Console.WriteLine("\nYou purchased " + purchaseAmount + " " + playerChoice + " for a total of $" + totalAmount);
 
             ItemValues(playerChoice, totalAmount);
         }
@@ -127,22 +141,26 @@ namespace LemonadeStand
         {
             switch (playerChoice)
             {
-                case "1":
+                case "Lemons":
                     lemons.AddLemons(purchaseAmount);
                     wallet.CalculateWallet(totalAmount);
+                    dayTotalDebt += totalAmount;
                     break;
-                case "2":
+                case "Sugar":
                     sugar.sugar = sugar.sugar += purchaseAmount;
                     wallet.CalculateWallet(totalAmount);
                     return;
-                case "3":
+                case "Cups":
                     cups.cups = cups.cups += purchaseAmount;
                     wallet.CalculateWallet(totalAmount);
                     return;
-                case "4":
+                case "Ice":
                     iceCube.iceCube = iceCube.iceCube += purchaseAmount;
                     wallet.CalculateWallet(totalAmount);
                     return;
+                case "None":
+
+                    break;
                 default:
                     Console.WriteLine("This thing broke");
                     break;
@@ -153,29 +171,29 @@ namespace LemonadeStand
         {
             switch (playerChoice)
             {
-                case "1":
-                    playerChoice = "Lemons";
-                    itemPrice = .75;
-                    AmountToPurchase(playerChoice);
-                    break;
-                case "2":
-                    playerChoice = "cups of Sugar";
+                case "Lemons":
                     itemPrice = .50;
                     AmountToPurchase(playerChoice);
                     break;
-                case "3":
-                    playerChoice = "Cups";
+                case "Sugar":
                     itemPrice = .25;
                     AmountToPurchase(playerChoice);
                     break;
-                case "4":
-                    playerChoice = "bags of Ice";
-                    itemPrice = .50;
+                case "Cups":
+                    itemPrice = .20;
                     AmountToPurchase(playerChoice);
+                    break;
+                case "Ice":
+                    itemPrice = .25;
+                    AmountToPurchase(playerChoice);
+                    break;
+                case "None":
+
                     break;
                 default:
                     Console.WriteLine("Please select one of the options available to you.");
-                    PurchasePrompt();
+                    ui.ClickToContinue();
+                    PurchasePhase();
                     break;
             }
             return playerChoice;
@@ -183,7 +201,7 @@ namespace LemonadeStand
 
         public void PurchaseAgain()
         {
-            Console.WriteLine("Do you wish to purchase more items? y/n");
+            Console.WriteLine("Do you wish to purchase more items? (y)Yes / (n)No");
             response = Console.ReadLine();
             yesOrNo(response);
         }
@@ -201,7 +219,8 @@ namespace LemonadeStand
                     Console.Clear();
                     break;
                 default:
-                    yesOrNo(response);
+                    string blank = null;
+                    yesOrNo(blank);
                     break;
             }
         }
@@ -214,14 +233,14 @@ namespace LemonadeStand
 
         public void SetRecipe()
         {
-            Console.WriteLine("How would you like to set your recipe?");
-            Console.WriteLine("Enter the amount of lemons to add");
+            Console.WriteLine("\nHow would you like to set your recipe?");
+            Console.WriteLine("\nEnter the amount of lemons to add");
             lemonsRecipe = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter the amount of sugar to add");
+            Console.WriteLine("\nEnter the amount of sugar to add");
             sugarRecipe = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter the amount of ice cubes to add");
+            Console.WriteLine("\nEnter the amount of ice cubes to add");
             iceCubeRecipe = Convert.ToInt32(Console.ReadLine());
             SetPitcher(lemonsRecipe, sugarRecipe, iceCubeRecipe);
         }
@@ -239,9 +258,6 @@ namespace LemonadeStand
 
             pitcherValue = (lemonsPitcher + sugarPitcher) - iceCubePitcher;
 
-            DisplayItems();
-            Console.WriteLine("\npitcher value" + pitcherValue);
-
             PitcherCheck();
         }
 
@@ -253,24 +269,162 @@ namespace LemonadeStand
             }
             else
             {
-
+                return;
             }
+        }
+
+        public void SetPrice()
+        {
+            Console.Clear();
+            Console.WriteLine("\nSet your price for your lemonade per cup");
+            price = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Your price per cup has been set to $" + price);
         }
 
         public void CustomerPhase()
         {
+            CustomerWeather();
+            CustomerLoop();
+            DisplayInformation();
+        }
 
+        public void CustomerWeather()
+        {
+            Random random = new Random();
+            switch (gameWeather)
+            {
+                case "Hazy":
+                    customerAmount = random.Next(60, 90);
+                    break;
+                case "Rain":
+                    customerAmount = random.Next(35, 75);
+                    break;
+                case "Overcast":
+                    customerAmount = random.Next(45, 85);
+                    break;
+                default:
+                    customerAmount = random.Next(80, 120);
+                    break;
+            }
+        }
+
+        public void CustomerLoop()
+        {
+            for (int i = 1; i < customerAmount; i++)
+            {
+                CustomerVariant();
+            }
+        }
+
+        public void CustomerVariant()
+        {
+            Random random = new Random();
+            int customerBuyChance = 100 + pitcherValue;
+            int customerNoBuyChance = random.Next(1, 41);
+            int temperatureChance = gameTemperature / 4;
+            int weatherChance;
+
+            weatherChance = weather.CustomerWeather(gameWeather);
+
+            customerBuyChance = customerBuyChance - (customerNoBuyChance + temperatureChance);
+
+            if (customerBuyChance >= 50 + weatherChance)
+            {
+                customerBuy++;
+                overallBuyCustomer++;
+                dayTotalCustomers++;
+                CustomerPurchase();
+            }
+            else
+            {
+                customerNoBuy++;
+                overallNoBuyCustomer++;
+                dayTotalCustomers++;
+            }
+        }
+
+        public void CustomerPurchase()
+        {
+            wallet.AddToWallet(price);
+            CalculateOverallProfit(price);
+            CalculateDayProfit(price);
+            cups.SubtractCups(1);
         }
 
         public void CalculationPhase()
         {
-
             dayCounter++;
+
+            CalculateTotalCustomers();
+            DisplayDayProfit();
+            DisplayRemainingInventory();
+        }
+
+        public void CalculateTotalCustomers()
+        {
+            customerTotal = customerBuy + customerNoBuy;
+            Console.Clear();
+            Console.WriteLine("You had " + customerBuy + " out of " + customerTotal + " customers today!\n");
+            ui.ClickToContinue();
+        }
+
+        public void DisplayRemainingInventory()
+        {
+            Console.WriteLine("This is what remains of your inventory: ");
+            DisplayItems();
+            ui.ClickToContinue();
+        }
+
+        public void CalculateOverallProfit(double price)
+        {
+            overallProfit += price;
+            overallProfit = overallProfit - overallDebt;
+        }
+
+        public void DisplayOverallProfit()
+        {
+            Console.WriteLine("Overall profit: $" + overallProfit);
+            ui.ClickToContinue();
+        }
+
+        public void CalculateDayProfit(double price)
+        {
+            dayTotalProfit = price - dayTotalDebt;
+        }
+
+        public void DisplayDayProfit()
+        {
+            Console.WriteLine("Profit for the day: $" + dayTotalProfit);
+            ui.ClickToContinue();
         }
 
         public void DecayPhase()
         {
+            ResetValues();
+            DecayIce();
+            DecayLemons();
+        }
 
+        public void DecayIce()
+        {
+            Console.WriteLine("All of your ice melted!");
+            iceCube.iceCube = 0;
+            ui.ClickToContinue();
+        }
+
+        public void ResetValues()
+        {
+            pitcherValue = 0;
+            dayTotalCustomers = 0;
+            dayTotalProfit = 0;
+            dayTotalDebt = 0;
+        }
+
+        public void DecayLemons()
+        {
+            Console.WriteLine("Some of your lemons spoiled");
+            lemons.SpoilLemons();
+            ui.ClickToContinue();
         }
 
         public void DayCheck()
@@ -293,6 +447,7 @@ namespace LemonadeStand
             DisplayInformation();
             PurchasePhase();
             RecipePhase();
+            SetPrice();
             CustomerPhase();
             CalculationPhase();
             DecayPhase();

@@ -20,5 +20,11 @@ namespace LemonadeStand
             cups += purchaseAmount;
             return cups;
         }
+
+        public int SubtractCups(int subtract)
+        {
+            cups -= subtract;
+            return cups;
+        }
     }
 }

@@ -27,5 +27,18 @@ namespace LemonadeStand
             lemons -= subtract;
             return lemons;
         }
+
+        public int SpoilLemons()
+        {
+            if (lemons <= 0)
+            {
+                return lemons;
+            }
+            else
+            {
+                lemons = lemons / 2;
+                return lemons;
+            }
+        }
     }
 }

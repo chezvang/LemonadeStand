@@ -40,7 +40,7 @@ namespace LemonadeStand
 
         public virtual string DisplayWeather()
         {
-            Console.WriteLine("Today's weather forecast is " + displayWeather + ".\n");
+            Console.WriteLine("Today's weather forecast is " + displayWeather);
             return displayWeather;
         }
 
@@ -62,5 +62,19 @@ namespace LemonadeStand
             return;
         }
 
+        public int CustomerWeather(string gameWeather)
+        {
+            switch (gameWeather)
+            {
+                case "Hazy":
+                    return 10;
+                case "Rain":
+                    return 20;
+                case "Overcast":
+                    return 15;
+                default:
+                    return 0;
+            }
+        }
     }
 }

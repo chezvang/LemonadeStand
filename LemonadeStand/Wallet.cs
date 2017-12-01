@@ -18,12 +18,25 @@ namespace LemonadeStand
 
         public void DisplayPlayerWallet()
         {
-            Console.WriteLine("Player cash: $" + money + "\n");           
+            Console.WriteLine("\nPlayer cash: $" + money + "\n");           
         }
 
         public void CalculateWallet(double number)
         {
             money = money - number;
+        }
+
+        public void AddToWallet(double number)
+        {
+            money = money += number;
+        }
+
+        public void WalletCheck()
+        {
+            if (money <= 0)
+            {
+                Console.WriteLine("");
+            }
         }
     }
 }
