@@ -319,7 +319,7 @@ namespace LemonadeStand
 
             customerBuyChance = customerBuyChance - (customerNoBuyChance + temperatureChance);
 
-            if (customerBuyChance >= 42 + weatherChance)
+            if (customerBuyChance >= 40 + weatherChance)
             {
                 customerBuy++;
                 overallBuyCustomer++;
@@ -449,7 +449,6 @@ namespace LemonadeStand
             {
                 RunGame();
             }
-           Console.WriteLine(dayCounter);
         }
 
         public void RunGame()

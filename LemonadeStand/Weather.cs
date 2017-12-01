@@ -72,7 +72,7 @@ namespace LemonadeStand
                 case "Rain":
                     return random.Next(21, 36);
                 case "Overcast":
-                    return random.Next(5, 21;
+                    return random.Next(5, 21);
                 default:
                     return 0;
             }
